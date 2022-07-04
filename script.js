@@ -144,16 +144,18 @@ function test() {
     nombreCasa = "Slytherin";
   }
 
-  // let pregunta = prompt(
-  //   "Ya tengo todo lo que necesito, ¿quiere conocer su casa?"
-  // );
-  // if (pregunta.toLowerCase() === "no") {
-  //   alert("Hasta luego");
-  // } else if (pregunta.toLowerCase() === "si") {
-  //   alert("Su casa es " + nombreCasa);
-  // }
-  const casaSelecc = document.createElement("div");
-  casaSelecc.innerHTML = `<h1>Su casa es ${nombreCasa}<h1>`;
-  document.body.append(casaSelecc);
+  let pregunta = prompt(
+    "Ya tengo todo lo que necesito, ¿quiere conocer su casa?"
+  );
+  if (pregunta.toLowerCase() === "no") {
+    alert("Hasta luego");
+  } else if (pregunta.toLowerCase() === "si") {
+    const casaSelecc = document.createElement("div");
+    casaSelecc.innerHTML = `<h1>Su casa es ${nombreCasa}<h1>`;
+    document.body.append(casaSelecc);
+  }
+  // const casaSelecc = document.createElement("div");
+  // casaSelecc.innerHTML = `<h1>Su casa es ${nombreCasa}<h1>`;
+  // document.body.append(casaSelecc);
 }
 // }
