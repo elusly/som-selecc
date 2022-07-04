@@ -25,13 +25,11 @@ class Usuario {
     this.usuario = prompt("Ingrese nuevo nombre de usuario");
   }
 }
-// La verdad, me gustaría poder ejecutar la creación del usuario fuera de la función
-// porque así sólo me queda registrado dentro y no puedo utilizar los datos fuera.
-// Pero no sé cómo hacer que se ejecute el evento del botón si no es dentro de una función.
+let usuario1; // Acá declaré primero esta función afuera para poder usar sus datos luego.
 function registro() {
-  const usuario1 = new Usuario();
+  usuario1 = new Usuario();
 
-  const divUs = document.createElement("div");
+  const divUs = document.createElement("div"); //Acá cree un div para que los datos del usuario aparezcan en pantalla
 
   divUs.innerHTML = `<h3>Sus datos son: 
     Nombre: ${usuario1.nombre} 
@@ -41,6 +39,7 @@ function registro() {
   <h3>`;
   document.body.append(divUs);
 }
+// Este es el botón que va a ejecutar el test
 const boton2 = document.createElement("button");
 boton2.innerText = "Quiero comenzar el test";
 boton2.style.width = "200px";
@@ -49,92 +48,88 @@ boton2.style.height = "50px";
 document.body.append(boton2);
 
 boton2.addEventListener("click", test);
-// Esto lo comenté porque, como puse antes, no puedo usar los datos del usuario1 por fuera de
-// la función, entonces no puedo ejecutar todo esto de abajo.
-// function runTest() {
-//   let ingreso = prompt(
-//     "Saludos " +
-//       usuario1.usuario +
-//       ", ¿Quiere tomar el test de selecció n de casas? Si desea cambiar su usuario escriba CAMBIAR"
-//   );
-//   ingreso = ingreso.toLowerCase();
-
-//   if (ingreso === "si") {
-//     alert("Muy bien, prosigamos");
-//     test();
-//   } else if (ingreso === "cambiar") {
-//     usuario1.cambiarusuario();
-//     alert("Muy bien " + usuario1.usuario + ", comencemos");
-//     test();
-//   } else {
-//     // Toda respuesta que no sea "si" o "cambiar" va a obtener este mensaje y no se va a ejecutar el test.
-//     alert("Hasta luego entonces, muggle");
-//   }
 
 function test() {
-  const preguntas = [
-    "¿Qué elemento prefiere: agua, fuego, aire, tierra?",
-    "¿Cómo le gustaría ser recordado en la historia, 1. El sabio, 2. El bueno, 3. El grande, 4. El audaz?",
-    "¿Qué le resulta más difícil soportar, el aburrimiento, el hambre, la soledad, o el ser ignorado?",
-  ];
-  const respuestas = [];
+  let ingreso = prompt(
+    "Saludos " +
+      usuario1.usuario +
+      ", ¿Quiere tomar el test de selección de casas?"
+  );
+  ingreso = ingreso.toLowerCase();
 
-  for (let i = 0; i < preguntas.length; i++) {
-    respuestas.push(prompt(preguntas[i]));
+  if (ingreso === "si") {
+    alert("Muy bien, prosigamos");
+    test();
+  } else {
+    // Toda respuesta que no sea "si" o "cambiar" va a obtener este mensaje y no se va a ejecutar el test.
+    alert("Hasta luego entonces, muggle");
   }
-  // Me parece que el switch funciona bien, mejor que un IF como vos me dijiste. Siento que con un IF va a quedar mas desordenado
-  switch (respuestas[0].toLowerCase()) {
-    case "agua":
-      casas.ravenclaw += 5;
-      break;
-    case "fuego":
-      casas.gryffindor += 5;
-      break;
-    case "aire":
-      casas.slytherin += 5;
-      break;
-    case "tierra":
-      casas.hufflepuff += 5;
-      break;
-    default:
-      alert("Si no va a ingresar un element válido, avada kedavra!!!!!");
-  }
-  switch (respuestas[1]) {
-    case "1":
-      casas.ravenclaw += 6;
-      break;
-    case "2":
-      casas.hufflepuff += 6;
-      break;
-    case "3":
-      casas.slytherin += 6;
-      break;
-    case "4":
-      casas.gryffindor += 6;
-      break;
-    default:
-      alert("Si no va a ingresar un element válido, avada kedavra!!!!!");
-  }
+  function test() {
+    const preguntas = [
+      "¿Qué elemento prefiere: agua, fuego, aire, tierra?",
+      "¿Cómo le gustaría ser recordado en la historia, 1. El sabio, 2. El bueno, 3. El grande, 4. El audaz?",
+      "¿Qué le resulta más difícil soportar, el aburrimiento, el hambre, la soledad, o el ser ignorado?",
+    ];
+    const respuestas = [];
 
-  switch (respuestas[2].toLowerCase()) {
-    case "el aburrimiento":
-    case "aburrimiento":
-      casas.gryffindor += 5;
-      break;
-    case "el hambre":
-    case "hambre":
-      casas.ravenclaw += 5;
-      break;
-    case "la soledad":
-    case "soledad":
-      casas.hufflepuff += 5;
-      break;
-    case "ser ignorado":
-    case "ignorado":
-      casas.slytherin += 5;
-      break;
-    default:
-      alert("Si no va a ingresar un element válido, avada kedavra!!!!!");
+    for (let i = 0; i < preguntas.length; i++) {
+      respuestas.push(prompt(preguntas[i]));
+    }
+    // Me parece que el switch funciona bien, mejor que un IF como vos me dijiste.
+    // Siento que con un IF va a quedar mas desordenado
+    switch (respuestas[0].toLowerCase()) {
+      case "agua":
+        casas.ravenclaw += 5;
+        break;
+      case "fuego":
+        casas.gryffindor += 5;
+        break;
+      case "aire":
+        casas.slytherin += 5;
+        break;
+      case "tierra":
+        casas.hufflepuff += 5;
+        break;
+      default:
+        alert("Si no va a ingresar un element válido, avada kedavra!!!!!");
+    }
+    switch (respuestas[1]) {
+      case "1":
+        casas.ravenclaw += 6;
+        break;
+      case "2":
+        casas.hufflepuff += 6;
+        break;
+      case "3":
+        casas.slytherin += 6;
+        break;
+      case "4":
+        casas.gryffindor += 6;
+        break;
+      default:
+        alert("Si no va a ingresar un element válido, avada kedavra!!!!!");
+    }
+
+    switch (respuestas[2].toLowerCase()) {
+      case "el aburrimiento":
+      case "aburrimiento":
+        casas.gryffindor += 5;
+        break;
+      case "el hambre":
+      case "hambre":
+        casas.ravenclaw += 5;
+        break;
+      case "la soledad":
+      case "soledad":
+        casas.hufflepuff += 5;
+        break;
+      case "ser ignorado":
+      case "ignorado":
+        casas.slytherin += 5;
+        break;
+      default:
+        alert("Si no va a ingresar un element válido, avada kedavra!!!!!");
+    }
   }
 
   let casaElegida = 0;
