@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sombrero Seleccionador</title>
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <h1>Bienvenidos al test del Sombrero Seleccionador</h1>
@@ -13,12 +14,53 @@
       alt="Sombrero Seleccionador"
       width="250"
     />
+
     <h3>
       Cuando esté listo para comenzar el test y averiguar su casa, haga click en
       el botón de abajo para registrarse y luego podrá comenzar:
     </h3>
+    <button id="boton1" style="width: 200px; height: 50px; margin-right: 10px">
+      Quiero registrarme
+    </button>
 
-    <div id="infousuario" style="margin-top: 10pt"></div>
+    <section class="inicio__test" id="inicio__test" style="display: none">
+      <div id="saludo">
+        <h2>¿Qué elemento prefiere: agua, fuego, aire, tierra?</h2>
+        <button id="agua">Agua</button>
+        <button id="fuego">Fuego</button>
+        <button id="aire">Aire</button>
+        <button id="tierra">Tierra</button>
+      </div>
+
+      <div>
+        <h2>
+          ¿Cómo le gustaría ser recordado en la historia, "El sabio", "El
+          bueno", "El grande", "El audaz"?
+        </h2>
+        <button id="sabio">El sabio</button>
+        <button id="bueno">El bueno</button>
+        <button id="grande">El grande</button>
+        <button id="audaz">El audaz</button>
+      </div>
+
+      <div>
+        <h2>
+          ¿Qué le resulta más difícil soportar, el aburrimiento, el hambre, la
+          soledad, o el ser ignorado?
+        </h2>
+        <button id="aburrimiento">El aburrimiento</button>
+        <button id="hambre">El hambre</button>
+        <button id="soledad">La soledad</button>
+        <button id="ignorado">Ser ignorado</button>
+      </div>
+    </section>
+    <section id="result" style="display: none" class="test__resultado">
+      <div id="resultado">
+        <h1>Ya tengo todo lo que necesito, ¿quiere conocer su casa?</h1>
+        <button id="si">Si</button>
+        <button id="no">No</button>
+      </div>
+    </section>
 
     <script src="script2.js"></script>
   </body>

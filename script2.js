@@ -7,10 +7,7 @@ const casas = {
 };
 // Lo que hice acá fue crear un botón de registro, en donde tocas "Quiero registrarme"
 // y se ejecuta la función registro que está más abajo.
-const boton1 = document.createElement("button");
-boton1.innerText = "Quiero registrarme";
-boton1.style = "width: 200px; height: 50px; margin-right:10px;";
-document.body.append(boton1);
+const boton1 = document.getElementById("boton1");
 boton1.addEventListener("click", registro);
 class Usuario {
   // Acá modifiqué el objeto por la clase, como me sugeriste. Me parece una buena idea a futuro,
@@ -31,13 +28,14 @@ function registro() {
 
   const divUs = document.createElement("div"); //Acá cree un div para que los datos del usuario aparezcan en pantalla
 
-  divUs.innerHTML = `<h3>Sus datos son: 
-    Nombre: ${usuario1.nombre} 
-    Nombre de usuario: ${usuario1.usuario} 
-    Edad: ${usuario1.edad} 
-    País: ${usuario1.pais} 
+  divUs.innerHTML = `<h3>Sus datos son:
+    Nombre: ${usuario1.nombre}
+    Nombre de usuario: ${usuario1.usuario}
+    Edad: ${usuario1.edad}
+    País: ${usuario1.pais}
   <h3>`;
   document.body.append(divUs);
+  boton1.remove();
 }
 // Este es el botón que va a ejecutar el test
 const boton2 = document.createElement("button");
@@ -46,95 +44,73 @@ boton2.style.width = "200px";
 boton2.style.height = "50px";
 
 document.body.append(boton2);
+boton2.addEventListener("click", testAparece);
+function testAparece() {
+  const secTest = document.getElementById("inicio__test");
+  secTest.style.display = "block";
+  boton2.remove();
+}
+// Lo que hice fue crear botones y a cada boton asignarle una función que sume puntos
+// a la casa que corresponda su respuesta
+const agua = document.getElementById("agua");
+const fuego = document.getElementById("fuego");
+const aire = document.getElementById("aire");
+const tierra = document.getElementById("tierra");
+const botones1 = [agua, fuego, aire, tierra];
 
-boton2.addEventListener("click", test);
+agua.addEventListener("click", () => sumar5("ravenclaw", botones1));
+fuego.addEventListener("click", () => sumar5("gryffindor", botones1));
+aire.addEventListener("click", () => sumar5("slytherin", botones1));
+tierra.addEventListener("click", () => sumar5("hufflepuff", botones1));
 
-function test() {
-  let ingreso = prompt(
-    "Saludos " +
-      usuario1.usuario +
-      ", ¿Quiere tomar el test de selección de casas?"
-  );
-  ingreso = ingreso.toLowerCase();
+function sumar5(casa, botones) {
+  casas[casa] += 5;
+  console.log(casas);
 
-  if (ingreso === "si") {
-    alert("Muy bien, prosigamos");
-    test();
-  } else {
-    // Toda respuesta que no sea "si" o "cambiar" va a obtener este mensaje y no se va a ejecutar el test.
-    alert("Hasta luego entonces, muggle");
-  }
-  function test() {
-    const preguntas = [
-      "¿Qué elemento prefiere: agua, fuego, aire, tierra?",
-      "¿Cómo le gustaría ser recordado en la historia, 1. El sabio, 2. El bueno, 3. El grande, 4. El audaz?",
-      "¿Qué le resulta más difícil soportar, el aburrimiento, el hambre, la soledad, o el ser ignorado?",
-    ];
-    const respuestas = [];
+  botones.forEach((boton) => (boton.disabled = true));
+}
 
-    for (let i = 0; i < preguntas.length; i++) {
-      respuestas.push(prompt(preguntas[i]));
-    }
-    // Me parece que el switch funciona bien, mejor que un IF como vos me dijiste.
-    // Siento que con un IF va a quedar mas desordenado
-    switch (respuestas[0].toLowerCase()) {
-      case "agua":
-        casas.ravenclaw += 5;
-        break;
-      case "fuego":
-        casas.gryffindor += 5;
-        break;
-      case "aire":
-        casas.slytherin += 5;
-        break;
-      case "tierra":
-        casas.hufflepuff += 5;
-        break;
-      default:
-        alert("Si no va a ingresar un element válido, avada kedavra!!!!!");
-    }
-    switch (respuestas[1]) {
-      case "1":
-        casas.ravenclaw += 6;
-        break;
-      case "2":
-        casas.hufflepuff += 6;
-        break;
-      case "3":
-        casas.slytherin += 6;
-        break;
-      case "4":
-        casas.gryffindor += 6;
-        break;
-      default:
-        alert("Si no va a ingresar un element válido, avada kedavra!!!!!");
-    }
+const sabio = document.getElementById("sabio");
+const bueno = document.getElementById("bueno");
+const grande = document.getElementById("grande");
+const audaz = document.getElementById("audaz");
+const botones2 = [sabio, bueno, grande, audaz];
 
-    switch (respuestas[2].toLowerCase()) {
-      case "el aburrimiento":
-      case "aburrimiento":
-        casas.gryffindor += 5;
-        break;
-      case "el hambre":
-      case "hambre":
-        casas.ravenclaw += 5;
-        break;
-      case "la soledad":
-      case "soledad":
-        casas.hufflepuff += 5;
-        break;
-      case "ser ignorado":
-      case "ignorado":
-        casas.slytherin += 5;
-        break;
-      default:
-        alert("Si no va a ingresar un element válido, avada kedavra!!!!!");
-    }
-  }
+sabio.addEventListener("click", () => sumar6("ravenclaw", botones2));
+bueno.addEventListener("click", () => sumar6("hufflepuff", botones2));
+grande.addEventListener("click", () => sumar6("slytherin", botones2));
+audaz.addEventListener("click", () => sumar6("gryffindor", botones2));
 
+function sumar6(casa, botones) {
+  casas[casa] += 6;
+  console.log(casas);
+
+  botones.forEach((boton) => (boton.disabled = true));
+}
+const aburrimiento = document.getElementById("aburrimiento");
+const hambre = document.getElementById("hambre");
+const soledad = document.getElementById("soledad");
+const ignorado = document.getElementById("ignorado");
+const botones3 = [aburrimiento, hambre, soledad, ignorado];
+
+aburrimiento.addEventListener("click", () => sumar5f("gryffindor", botones3));
+hambre.addEventListener("click", () => sumar5f("ravenclaw", botones3));
+soledad.addEventListener("click", () => sumar5f("hufflepuff", botones3));
+ignorado.addEventListener("click", () => sumar5f("slytherin", botones3));
+function sumar5f(casa, botones) {
+  casas[casa] += 5;
+  console.log(casas);
+
+  botones.forEach((boton) => (boton.disabled = true));
+  const ocultarTest = document.getElementById("inicio__test");
+  ocultarTest.style.display = "none";
+  const preguntar = document.getElementById("result");
+  preguntar.style.display = "block";
+}
+
+function mostrarCasa() {
   let casaElegida = 0;
   let nombreCasa = "";
-
   if (casas.gryffindor > casaElegida) {
     casaElegida = casas.gryffindor;
     nombreCasa = "Gryffindor";
@@ -154,16 +130,33 @@ function test() {
     casaElegida = casas.slytherin;
     nombreCasa = "Slytherin";
   }
-
-  let pregunta = prompt(
-    "Ya tengo todo lo que necesito, ¿quiere conocer su casa?"
-  );
-  if (pregunta.toLowerCase() === "no") {
-    alert("Hasta luego");
-  } else if (pregunta.toLowerCase() === "si") {
-    const casaSelecc = document.createElement("div");
-    casaSelecc.innerHTML = `<h1>Su casa es ${nombreCasa}<h1>`;
-
-    document.body.append(casaSelecc);
+  return nombreCasa;
+}
+const si = document.getElementById("si");
+si.addEventListener("click", sifunc);
+function sifunc() {
+  const casaNombre = document.createElement("h2");
+  casaNombre.innerHTML = `Su casa es <span id="colorCasa">${mostrarCasa()}</span>`;
+  document.body.append(casaNombre);
+  si.remove();
+  no.remove();
+  const colorC = document.getElementById("colorCasa");
+  if (mostrarCasa() === "Ravenclaw") {
+    colorC.style = "color: blue";
+  } else if (mostrarCasa() === "Hufflepuff") {
+    colorC.style = "color: #F6DF39";
+  } else if (mostrarCasa() === "Gryffindor") {
+    colorC.style = "color: red";
+  } else if (mostrarCasa() === "Slytherin") {
+    colorC.style = "color: green";
   }
+}
+const no = document.getElementById("no");
+no.addEventListener("click", nofunc);
+function nofunc() {
+  const nada = document.createElement("h2");
+  nada.innerHTML = `Hasta luego`;
+  document.body.append(nada);
+  si.remove();
+  no.remove();
 }
