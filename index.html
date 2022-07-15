@@ -5,31 +5,79 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sombrero Seleccionador</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova&family=Poppins:wght@200&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Bienvenidos al test del Sombrero Seleccionador</h1>
-    <img
-      src="./img/581-5888e17f125b06d0e015546555574151-1024-1024.jpg"
-      alt="Sombrero Seleccionador"
-      width="250"
-    />
+    <section class="intro">
+      <h1>Bienvenidos al test del Sombrero Seleccionador</h1>
+      <img
+        class="intro__img"
+        src="./img/581-5888e17f125b06d0e015546555574151-1024-1024.jpg"
+        alt="Sombrero Seleccionador"
+        width="250"
+      />
 
-    <h3>
-      Cuando esté listo para comenzar el test y averiguar su casa, haga click en
-      el botón de abajo para registrarse y luego podrá comenzar:
-    </h3>
-    <button id="boton1" style="width: 200px; height: 50px; margin-right: 10px">
-      Quiero registrarme
-    </button>
-
+      <h3 id="intro__text">
+        Cuando esté listo para comenzar el test y averiguar su casa, haga click
+        en el botón de abajo para registrarse y luego podrá comenzar:
+      </h3>
+    </section>
+    <button id="boton1" class="boton">Quiero registrarme</button>
+    <section class="registro" style="display: none" id="registro">
+      <form action="" class="registro__form">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Introduzca su nombre"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="age" class="form-label">Edad</label>
+          <input
+            type="number"
+            class="form-control"
+            id="age"
+            placeholder="Introduzca su edad"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="nac" class="form-label">Nacionalidad</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nac"
+            placeholder="Introduzca su nacionalidad"
+          />
+        </div>
+        <button id="butSend" type="reset" class="btn btn-secondary">
+          Enviar
+        </button>
+      </form>
+    </section>
+    <button id="boton2" class="boton">Comenzar test</button>
     <section class="inicio__test" id="inicio__test" style="display: none">
+      <h2 id="nameUs"></h2>
       <div id="saludo">
         <h2>¿Qué elemento prefiere: agua, fuego, aire, tierra?</h2>
-        <button id="agua">Agua</button>
-        <button id="fuego">Fuego</button>
-        <button id="aire">Aire</button>
-        <button id="tierra">Tierra</button>
+        <button id="agua" class="test__button">Agua</button>
+        <button id="fuego" class="test__button">Fuego</button>
+        <button id="aire" class="test__button">Aire</button>
+        <button id="tierra" class="test__button">Tierra</button>
       </div>
 
       <div>
@@ -37,10 +85,10 @@
           ¿Cómo le gustaría ser recordado en la historia, "El sabio", "El
           bueno", "El grande", "El audaz"?
         </h2>
-        <button id="sabio">El sabio</button>
-        <button id="bueno">El bueno</button>
-        <button id="grande">El grande</button>
-        <button id="audaz">El audaz</button>
+        <button id="sabio" class="test__button">El sabio</button>
+        <button id="bueno" class="test__button">El bueno</button>
+        <button id="grande" class="test__button">El grande</button>
+        <button id="audaz" class="test__button">El audaz</button>
       </div>
 
       <div>
@@ -48,17 +96,19 @@
           ¿Qué le resulta más difícil soportar, el aburrimiento, el hambre, la
           soledad, o el ser ignorado?
         </h2>
-        <button id="aburrimiento">El aburrimiento</button>
-        <button id="hambre">El hambre</button>
-        <button id="soledad">La soledad</button>
-        <button id="ignorado">Ser ignorado</button>
+        <button id="aburrimiento" class="test__button--1">
+          El aburrimiento
+        </button>
+        <button id="hambre" class="test__button--1">El hambre</button>
+        <button id="soledad" class="test__button--1">La soledad</button>
+        <button id="ignorado" class="test__button--1">Ser ignorado</button>
       </div>
     </section>
     <section id="result" style="display: none" class="test__resultado">
       <div id="resultado">
         <h1>Ya tengo todo lo que necesito, ¿quiere conocer su casa?</h1>
-        <button id="si">Si</button>
-        <button id="no">No</button>
+        <button id="si" class="test__button">Si</button>
+        <button id="no" class="test__button">No</button>
       </div>
     </section>
 

@@ -8,47 +8,76 @@ const casas = {
 // Lo que hice acá fue crear un botón de registro, en donde tocas "Quiero registrarme"
 // y se ejecuta la función registro que está más abajo.
 const boton1 = document.getElementById("boton1");
+const form = document.getElementById("registro");
 boton1.addEventListener("click", registro);
-class Usuario {
-  // Acá modifiqué el objeto por la clase, como me sugeriste. Me parece una buena idea a futuro,
-  // aunque por ahora solo permita el ingreso de un usuario
-  constructor(nombre, usuario, edad, pais) {
-    this.nombre = prompt("Ingrese su nombre");
-    this.usuario = prompt("Ingrese un nombre de usuario");
-    this.edad = prompt("Ingrese su edad");
-    this.pais = prompt("Ingrese su país de origen");
-  }
-  cambiarUsuario() {
-    this.usuario = prompt("Ingrese nuevo nombre de usuario");
-  }
-}
-let usuario1; // Acá declaré primero esta función afuera para poder usar sus datos luego.
 function registro() {
-  usuario1 = new Usuario();
-
-  const divUs = document.createElement("div"); //Acá cree un div para que los datos del usuario aparezcan en pantalla
-
-  divUs.innerHTML = `<h3>Sus datos son:
-    Nombre: ${usuario1.nombre}
-    Nombre de usuario: ${usuario1.usuario}
-    Edad: ${usuario1.edad}
-    País: ${usuario1.pais}
-  <h3>`;
-  document.body.append(divUs);
-  boton1.remove();
+  form.style.display = "block";
 }
-// Este es el botón que va a ejecutar el test
-const boton2 = document.createElement("button");
-boton2.innerText = "Quiero comenzar el test";
-boton2.style.width = "200px";
-boton2.style.height = "50px";
+class Usuario {
+  constructor(nombre, edad, nacionalidad) {
+    this.nombre = nombre;
+    this.edad = edad;
+    this.nacionalidad = nacionalidad;
+  }
+}
+// Acá hice el registro en el HTML. Los valores de los inputs se guardan en un una variable
+//que luego se almacena en una array.
+let input1 = document.getElementById("name");
+let input2 = document.getElementById("age");
+let input3 = document.getElementById("nac");
+let butSend = document.getElementById("butSend");
+let usuario1;
+const usuarios = [];
+let nombre;
+let edad;
+let nacionalidad;
+input1.onchange = () => {
+  nombre = input1.value;
+  console.log(nombre);
+};
+input2.onchange = () => {
+  edad = input2.value;
+  console.log(edad);
+};
+input3.onchange = () => {
+  nacionalidad = input3.value;
+  console.log(nacionalidad);
+  localStorage.setItem("formularioEnviado", 1);
+};
+// Usé el localStorage para que una vez que se haya enviado el formulario, que desaparezca el formulario
+// y el botón de envío
+butSend.addEventListener("click", crearUsuario);
+function crearUsuario() {
+  usuario1 = new Usuario(nombre, edad, nacionalidad);
+  usuarios.push(usuario1);
+  chequearForm();
+}
 
-document.body.append(boton2);
+function chequearForm() {
+  const formEnviado = localStorage.getItem("formularioEnviado");
+  if (formEnviado !== null) {
+    form.style.display = "none";
+    boton1.remove();
+  }
+}
+// Este es el botón de "comenzar test" y también utilicé el localStorage para que
+// no se ejecute el evento de este botón hasta que no se haya registrado el usuario
+// Y una vez que se aprieta el "comenzar test" también desaparece el botón
+const boton2 = document.getElementById("boton2");
+const nameUsuario = document.getElementById("nameUs");
 boton2.addEventListener("click", testAparece);
 function testAparece() {
   const secTest = document.getElementById("inicio__test");
-  secTest.style.display = "block";
-  boton2.remove();
+  const intro = document.getElementById("intro__text");
+  const formEnviado = localStorage.getItem("formularioEnviado");
+  if (formEnviado !== null) {
+    secTest.style.display = "block";
+    intro.style.display = "none";
+    boton1.remove();
+    boton2.remove();
+    localStorage.clear(); // Puse para que se borre el local storage, para que cuando se reinicie la
+    //pestaña no deje completar el test sin registrarse nuevamente.
+  }
 }
 // Lo que hice fue crear botones y a cada boton asignarle una función que sume puntos
 // a la casa que corresponda su respuesta
@@ -139,7 +168,7 @@ function sifunc() {
   casaNombre.innerHTML = `Su casa es <span id="colorCasa">${mostrarCasa()}</span>`;
   document.body.append(casaNombre);
   si.remove();
-  no.remove();
+  no.remove(); //Acá le agregué colorcito a los nombres de las casas jeje :)
   const colorC = document.getElementById("colorCasa");
   if (mostrarCasa() === "Ravenclaw") {
     colorC.style = "color: blue";
@@ -160,3 +189,5 @@ function nofunc() {
   si.remove();
   no.remove();
 }
+// Le agregué un poco de CSS para hacerlo más lindo jaja, le falta al diseño obviamente pero le quedó
+// una estética vintage que me gusta también jajaja.
