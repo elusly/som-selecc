@@ -64,7 +64,7 @@ function chequearForm() {
 // no se ejecute el evento de este botón hasta que no se haya registrado el usuario
 // Y una vez que se aprieta el "comenzar test" también desaparece el botón
 const boton2 = document.getElementById("boton2");
-const nameUsuario = document.getElementById("nameUs");
+
 boton2.addEventListener("click", testAparece);
 function testAparece() {
   const secTest = document.getElementById("inicio__test");
@@ -75,12 +75,16 @@ function testAparece() {
     intro.style.display = "none";
     boton1.remove();
     boton2.remove();
-    localStorage.clear(); // Puse para que se borre el local storage, para que cuando se reinicie la
+    localStorage.clear();
+    const nameUser = document.getElementById("nameUs");
+    nameUser.innerHTML = `<h2>Saludos, ${usuario1.nombre}</h2>`;
+    // Puse para que se borre el local storage, para que cuando se reinicie la
     //pestaña no deje completar el test sin registrarse nuevamente.
   }
 }
 // Lo que hice fue crear botones y a cada boton asignarle una función que sume puntos
 // a la casa que corresponda su respuesta
+
 const agua = document.getElementById("agua");
 const fuego = document.getElementById("fuego");
 const aire = document.getElementById("aire");
