@@ -12,6 +12,7 @@ const form = document.getElementById("registro");
 boton1.addEventListener("click", registro);
 function registro() {
   form.style.display = "block";
+  boton1.style = "color: black; border: 1px solid black;";
 }
 class Usuario {
   constructor(nombre, edad, nacionalidad) {
@@ -80,6 +81,8 @@ function testAparece() {
     nameUser.innerHTML = `<h2>Saludos, ${usuario1.nombre}</h2>`;
     // Puse para que se borre el local storage, para que cuando se reinicie la
     //pestaña no deje completar el test sin registrarse nuevamente.
+  } else {
+    boton1.style = "color: red; border: 1px solid red";
   }
 }
 // Lo que hice fue crear botones y a cada boton asignarle una función que sume puntos
