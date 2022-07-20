@@ -43,7 +43,6 @@ input2.onchange = () => {
 input3.onchange = () => {
   nacionalidad = input3.value;
   console.log(nacionalidad);
-  localStorage.setItem("formularioEnviado", 1);
 };
 // Usé el localStorage para que una vez que se haya enviado el formulario, que desaparezca el formulario
 // y el botón de envío
@@ -51,10 +50,15 @@ butSend.addEventListener("click", crearUsuario);
 function crearUsuario() {
   usuario1 = new Usuario(nombre, edad, nacionalidad);
   usuarios.push(usuario1);
+  const UsJSON = JSON.stringify(usuario1);
+  localStorage.setItem("Formulario", "Enviado");
+  localStorage.setItem("Usuario", UsJSON);
+  localStorage.setItem("NombreDeUsuario", usuario1.nombre);
   chequearForm();
 }
+
 const boton2 = document.getElementById("boton2");
-const formEnviado = localStorage.getItem("formularioEnviado");
+const formEnviado = localStorage.getItem("Formulario");
 function chequearForm() {
   if (formEnviado !== null) {
     const intro = document.getElementById("intro__text");
@@ -64,7 +68,9 @@ function chequearForm() {
     boton1.remove();
     const header = document.getElementById("header");
     const loggeado = document.createElement("span");
-    loggeado.innerHTML = `<p class="login">Saludos ${usuario1.nombre}!</p>`;
+    loggeado.innerHTML = `<p class="login">Saludos ${localStorage.getItem(
+      "NombreDeUsuario"
+    )}!</p>`;
     header.appendChild(loggeado);
     const logout = document.createElement("span");
     logout.innerHTML = `<button type="button" class="logout">Cerrar sesión</button>`;
@@ -85,15 +91,12 @@ boton2.addEventListener("click", testAparece);
 function testAparece() {
   const secTest = document.getElementById("inicio__test");
 
-  const formEnviado = localStorage.getItem("formularioEnviado");
+  const formEnviado = localStorage.getItem("Formulario");
   if (formEnviado !== null) {
     secTest.style.display = "block";
 
     boton1.remove();
     boton2.remove();
-
-    const nameUser = document.getElementById("nameUs");
-    nameUser.innerHTML = `<h2>Saludos, ${usuario1.nombre}</h2>`;
   }
 }
 // Lo que hice fue crear botones y a cada boton asignarle una función que sume puntos
