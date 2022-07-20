@@ -53,36 +53,47 @@ function crearUsuario() {
   usuarios.push(usuario1);
   chequearForm();
 }
-
+const boton2 = document.getElementById("boton2");
+const formEnviado = localStorage.getItem("formularioEnviado");
 function chequearForm() {
-  const formEnviado = localStorage.getItem("formularioEnviado");
   if (formEnviado !== null) {
+    const intro = document.getElementById("intro__text");
+    intro.style.display = "none";
     form.style.display = "none";
+    boton2.style.display = "block";
     boton1.remove();
+    const header = document.getElementById("header");
+    const loggeado = document.createElement("span");
+    loggeado.innerHTML = `<p class="login">Saludos ${usuario1.nombre}!</p>`;
+    header.appendChild(loggeado);
+    const logout = document.createElement("span");
+    logout.innerHTML = `<button type="button" class="logout">Cerrar sesión</button>`;
+    header.appendChild(logout);
+    logout.addEventListener("click", logOut);
+    function logOut() {
+      localStorage.clear();
+      window.location.reload();
+    }
   }
 }
+
 // Este es el botón de "comenzar test" y también utilicé el localStorage para que
 // no se ejecute el evento de este botón hasta que no se haya registrado el usuario
 // Y una vez que se aprieta el "comenzar test" también desaparece el botón
-const boton2 = document.getElementById("boton2");
 
 boton2.addEventListener("click", testAparece);
 function testAparece() {
   const secTest = document.getElementById("inicio__test");
-  const intro = document.getElementById("intro__text");
+
   const formEnviado = localStorage.getItem("formularioEnviado");
   if (formEnviado !== null) {
     secTest.style.display = "block";
-    intro.style.display = "none";
+
     boton1.remove();
     boton2.remove();
-    localStorage.clear();
+
     const nameUser = document.getElementById("nameUs");
     nameUser.innerHTML = `<h2>Saludos, ${usuario1.nombre}</h2>`;
-    // Puse para que se borre el local storage, para que cuando se reinicie la
-    //pestaña no deje completar el test sin registrarse nuevamente.
-  } else {
-    boton1.style = "color: red; border: 1px solid red";
   }
 }
 // Lo que hice fue crear botones y a cada boton asignarle una función que sume puntos
@@ -171,16 +182,17 @@ function mostrarCasa() {
 const si = document.getElementById("si");
 si.addEventListener("click", sifunc);
 function sifunc() {
-  const casaNombre = document.createElement("h2");
-  casaNombre.innerHTML = `Su casa es <span id="colorCasa">${mostrarCasa()}</span>`;
-  document.body.append(casaNombre);
+  const casaCont = document.getElementById("casa");
+  const casaNombre = document.createElement("div");
+  casaNombre.innerHTML = `<h2 class="casaNombre">Su casa es <span id="colorCasa">${mostrarCasa()}</span></h2>`;
+  casaCont.appendChild(casaNombre);
   si.remove();
   no.remove(); //Acá le agregué colorcito a los nombres de las casas jeje :)
   const colorC = document.getElementById("colorCasa");
   if (mostrarCasa() === "Ravenclaw") {
     colorC.style = "color: blue";
   } else if (mostrarCasa() === "Hufflepuff") {
-    colorC.style = "color: #F6DF39";
+    colorC.style = "color: #f4c646";
   } else if (mostrarCasa() === "Gryffindor") {
     colorC.style = "color: red";
   } else if (mostrarCasa() === "Slytherin") {

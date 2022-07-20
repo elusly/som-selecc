@@ -19,93 +19,97 @@
       rel="stylesheet"
     />
   </head>
+  <header class="inicio" id="header"></header>
   <body>
-    <section class="intro">
-      <h1>Bienvenidos al test del Sombrero Seleccionador</h1>
-      <img
-        class="intro__img"
-        src="./img/581-5888e17f125b06d0e015546555574151-1024-1024.jpg"
-        alt="Sombrero Seleccionador"
-        width="250"
-      />
+    <div class="body">
+      <section class="intro">
+        <h1>Bienvenidos al test del Sombrero Seleccionador</h1>
+        <img
+          class="intro__img"
+          src="./img/581-5888e17f125b06d0e015546555574151-1024-1024.jpg"
+          alt="Sombrero Seleccionador"
+          width="250"
+        />
 
-      <h3 id="intro__text">
-        Cuando esté listo para comenzar el test y averiguar su casa, haga click
-        en el botón de abajo para registrarse y luego podrá comenzar:
-      </h3>
-    </section>
-    <button id="boton1" class="boton">Quiero registrarme</button>
-    <section class="registro" style="display: none" id="registro">
-      <form action="" class="registro__form">
-        <div class="mb-3">
-          <label for="name" class="form-label">Nombre</label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            placeholder="Introduzca su nombre"
-          />
+        <h3 id="intro__text">
+          Cuando esté listo para comenzar el test y averiguar su casa, haga
+          click en el botón de abajo para registrarse y luego podrá comenzar:
+        </h3>
+      </section>
+      <button id="boton1" class="boton">Quiero registrarme</button>
+      <section class="registro" style="display: none" id="registro">
+        <form action="" class="registro__form">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Introduzca su nombre"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="age" class="form-label">Edad</label>
+            <input
+              type="number"
+              class="form-control"
+              id="age"
+              placeholder="Introduzca su edad"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="nac" class="form-label">Nacionalidad</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nac"
+              placeholder="Introduzca su nacionalidad"
+            />
+          </div>
+          <button id="butSend" type="reset" class="btn btn-secondary">
+            Enviar
+          </button>
+        </form>
+      </section>
+      <button id="boton2" class="boton__test">Comenzar test</button>
+      <section class="inicio__test" id="inicio__test" style="display: none">
+        <div id="nameUs"></div>
+        <div id="saludo">
+          <h2>¿Qué elemento prefiere?</h2>
+          <button id="agua" class="test__button">Agua</button>
+          <button id="fuego" class="test__button">Fuego</button>
+          <button id="aire" class="test__button">Aire</button>
+          <button id="tierra" class="test__button">Tierra</button>
         </div>
-        <div class="mb-3">
-          <label for="age" class="form-label">Edad</label>
-          <input
-            type="number"
-            class="form-control"
-            id="age"
-            placeholder="Introduzca su edad"
-          />
+
+        <div>
+          <h2>¿Cómo le gustaría ser recordado en la historia?</h2>
+          <button id="sabio" class="test__button">El sabio</button>
+          <button id="bueno" class="test__button">El bueno</button>
+          <button id="grande" class="test__button">El grande</button>
+          <button id="audaz" class="test__button">El audaz</button>
         </div>
-        <div class="mb-3">
-          <label for="nac" class="form-label">Nacionalidad</label>
-          <input
-            type="text"
-            class="form-control"
-            id="nac"
-            placeholder="Introduzca su nacionalidad"
-          />
+
+        <div>
+          <h2>¿Qué le resulta más difícil soportar?</h2>
+          <button id="aburrimiento" class="test__button--1">
+            El aburrimiento
+          </button>
+          <button id="hambre" class="test__button--1">El hambre</button>
+          <button id="soledad" class="test__button--1">La soledad</button>
+          <button id="ignorado" class="test__button--1">Ser ignorado</button>
         </div>
-        <button id="butSend" type="reset" class="btn btn-secondary">
-          Enviar
-        </button>
-      </form>
-    </section>
-    <button id="boton2" class="boton">Comenzar test</button>
-    <section class="inicio__test" id="inicio__test" style="display: none">
-      <div id="nameUs"></div>
-      <div id="saludo">
-        <h2>¿Qué elemento prefiere?</h2>
-        <button id="agua" class="test__button">Agua</button>
-        <button id="fuego" class="test__button">Fuego</button>
-        <button id="aire" class="test__button">Aire</button>
-        <button id="tierra" class="test__button">Tierra</button>
-      </div>
+      </section>
+      <section id="result" style="display: none" class="test__resultado">
+        <div id="resultado">
+          <h1>Ya tengo todo lo que necesito, ¿quiere conocer su casa?</h1>
+          <button id="si" class="test__button">Si</button>
+          <button id="no" class="test__button">No</button>
+        </div>
+        <div id="casa"></div>
+      </section>
 
-      <div>
-        <h2>¿Cómo le gustaría ser recordado en la historia?</h2>
-        <button id="sabio" class="test__button">El sabio</button>
-        <button id="bueno" class="test__button">El bueno</button>
-        <button id="grande" class="test__button">El grande</button>
-        <button id="audaz" class="test__button">El audaz</button>
-      </div>
-
-      <div>
-        <h2>¿Qué le resulta más difícil soportar?</h2>
-        <button id="aburrimiento" class="test__button--1">
-          El aburrimiento
-        </button>
-        <button id="hambre" class="test__button--1">El hambre</button>
-        <button id="soledad" class="test__button--1">La soledad</button>
-        <button id="ignorado" class="test__button--1">Ser ignorado</button>
-      </div>
-    </section>
-    <section id="result" style="display: none" class="test__resultado">
-      <div id="resultado">
-        <h1>Ya tengo todo lo que necesito, ¿quiere conocer su casa?</h1>
-        <button id="si" class="test__button">Si</button>
-        <button id="no" class="test__button">No</button>
-      </div>
-    </section>
-
-    <script src="script2.js"></script>
+      <script src="script2.js"></script>
+    </div>
   </body>
 </html>
