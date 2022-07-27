@@ -5,11 +5,16 @@ const casas = {
   hufflepuff: 0,
   ravenclaw: 0,
 };
+let todasCasas = 0;
 // Lo que hice acá fue crear un botón de registro, en donde tocas "Quiero registrarme"
 // y se ejecuta la función registro que está más abajo.
 const boton1 = document.getElementById("boton1");
+const boton2 = document.getElementById("boton2");
 const form = document.getElementById("registro");
+chequearForm();
+
 boton1.addEventListener("click", registro);
+
 function registro() {
   form.style.display = "block";
   boton1.style = "color: black; border: 1px solid black;";
@@ -27,55 +32,72 @@ let input1 = document.getElementById("name");
 let input2 = document.getElementById("age");
 let input3 = document.getElementById("nac");
 let butSend = document.getElementById("butSend");
+
 let usuario1;
 const usuarios = [];
 let nombre;
 let edad;
 let nacionalidad;
+
 input1.onchange = () => {
   nombre = input1.value;
   console.log(nombre);
 };
+
 input2.onchange = () => {
   edad = input2.value;
   console.log(edad);
 };
+
 input3.onchange = () => {
   nacionalidad = input3.value;
   console.log(nacionalidad);
 };
+
 // Usé el localStorage para que una vez que se haya enviado el formulario, que desaparezca el formulario
 // y el botón de envío
 butSend.addEventListener("click", crearUsuario);
 function crearUsuario() {
-  usuario1 = new Usuario(nombre, edad, nacionalidad);
-  usuarios.push(usuario1);
-  const UsJSON = JSON.stringify(usuario1);
-  localStorage.setItem("Formulario", "Enviado");
-  localStorage.setItem("Usuario", UsJSON);
-  localStorage.setItem("NombreDeUsuario", usuario1.nombre);
-  chequearForm();
+  if (
+    nacionalidad === undefined ||
+    nombre === undefined ||
+    edad === undefined
+  ) {
+    swal("Atención!", "Por favor, completar todos los datos.", "error");
+  } else {
+    usuario1 = new Usuario(nombre, edad, nacionalidad);
+    usuarios.push(usuario1);
+    const UsJSON = JSON.stringify(usuario1);
+    localStorage.setItem("Formulario", "Enviado");
+    localStorage.setItem("Usuario", UsJSON);
+    localStorage.setItem("NombreDeUsuario", usuario1.nombre);
+    chequearForm();
+  }
 }
 
-const boton2 = document.getElementById("boton2");
-const formEnviado = localStorage.getItem("Formulario");
 function chequearForm() {
-  if (formEnviado !== null) {
+  const user = localStorage.getItem("Usuario");
+
+  if (user) {
     const intro = document.getElementById("intro__text");
     intro.style.display = "none";
     form.style.display = "none";
     boton2.style.display = "block";
     boton1.remove();
+
     const header = document.getElementById("header");
     const loggeado = document.createElement("span");
-    loggeado.innerHTML = `<p class="login">Saludos ${localStorage.getItem(
+
+    loggeado.innerHTML = `<p class="login">Saludos <a href="pages/profile.html"class="nombrelink">${localStorage.getItem(
       "NombreDeUsuario"
-    )}!</p>`;
+    )}</a>!</p>`;
     header.appendChild(loggeado);
+
     const logout = document.createElement("span");
     logout.innerHTML = `<button type="button" class="logout">Cerrar sesión</button>`;
     header.appendChild(logout);
     logout.addEventListener("click", logOut);
+
     function logOut() {
       localStorage.clear();
       window.location.reload();
@@ -102,60 +124,49 @@ function testAparece() {
 // Lo que hice fue crear botones y a cada boton asignarle una función que sume puntos
 // a la casa que corresponda su respuesta
 
-const agua = document.getElementById("agua");
-const fuego = document.getElementById("fuego");
-const aire = document.getElementById("aire");
-const tierra = document.getElementById("tierra");
-const botones1 = [agua, fuego, aire, tierra];
+fetch("/preguntas.json")
+  .then((response) => response.json())
+  .then((content) => cargarPreguntas(content));
 
-agua.addEventListener("click", () => sumar5("ravenclaw", botones1));
-fuego.addEventListener("click", () => sumar5("gryffindor", botones1));
-aire.addEventListener("click", () => sumar5("slytherin", botones1));
-tierra.addEventListener("click", () => sumar5("hufflepuff", botones1));
+function cargarPreguntas(preguntas) {
+  for (const pregunta of preguntas) {
+    const section = document.getElementById("inicio__test");
+    const div = document.createElement("div");
 
-function sumar5(casa, botones) {
-  casas[casa] += 5;
-  console.log(casas);
+    div.innerHTML = `<h2>${pregunta.pregunta}</h2>`;
 
-  botones.forEach((boton) => (boton.disabled = true));
+    for (const respuesta of pregunta.respuestas)
+      div.innerHTML += `<button id="${respuesta.name}" class="test__button--1">${respuesta.name}</button>`;
+
+    section.append(div);
+
+    for (const respuesta of pregunta.respuestas) {
+      const boton = document.getElementById(`${respuesta.name}`);
+      boton.addEventListener("click", () =>
+        asignarPuntos(respuesta.type, pregunta.respuestas, pregunta.sumarMas)
+      );
+    }
+  }
 }
 
-const sabio = document.getElementById("sabio");
-const bueno = document.getElementById("bueno");
-const grande = document.getElementById("grande");
-const audaz = document.getElementById("audaz");
-const botones2 = [sabio, bueno, grande, audaz];
+function asignarPuntos(casa, botones, sumarMas) {
+  if (sumarMas) casas[casa] += 6;
+  else casas[casa] += 5;
 
-sabio.addEventListener("click", () => sumar6("ravenclaw", botones2));
-bueno.addEventListener("click", () => sumar6("hufflepuff", botones2));
-grande.addEventListener("click", () => sumar6("slytherin", botones2));
-audaz.addEventListener("click", () => sumar6("gryffindor", botones2));
-
-function sumar6(casa, botones) {
-  casas[casa] += 6;
   console.log(casas);
+  todasCasas += 1;
 
-  botones.forEach((boton) => (boton.disabled = true));
-}
-const aburrimiento = document.getElementById("aburrimiento");
-const hambre = document.getElementById("hambre");
-const soledad = document.getElementById("soledad");
-const ignorado = document.getElementById("ignorado");
-const botones3 = [aburrimiento, hambre, soledad, ignorado];
+  botones.forEach(
+    (respuesta) =>
+      (document.getElementById(`${respuesta.name}`).disabled = true)
+  );
 
-aburrimiento.addEventListener("click", () => sumar5f("gryffindor", botones3));
-hambre.addEventListener("click", () => sumar5f("ravenclaw", botones3));
-soledad.addEventListener("click", () => sumar5f("hufflepuff", botones3));
-ignorado.addEventListener("click", () => sumar5f("slytherin", botones3));
-function sumar5f(casa, botones) {
-  casas[casa] += 5;
-  console.log(casas);
-
-  botones.forEach((boton) => (boton.disabled = true));
-  const ocultarTest = document.getElementById("inicio__test");
-  ocultarTest.style.display = "none";
-  const preguntar = document.getElementById("result");
-  preguntar.style.display = "block";
+  if (todasCasas === 3) {
+    const ocultarTest = document.getElementById("inicio__test");
+    ocultarTest.style.display = "none";
+    const preguntar = document.getElementById("result");
+    preguntar.style.display = "";
+  }
 }
 
 function mostrarCasa() {
@@ -182,15 +193,24 @@ function mostrarCasa() {
   }
   return nombreCasa;
 }
+
 const si = document.getElementById("si");
 si.addEventListener("click", sifunc);
+let casasElegidas = [{ name: "", date: "" }];
 function sifunc() {
+  // const hoy = new Date();
+  // console.log(hoy.toLocaleDateString("de-DE")); // D.M.YYYY
+  casasElegidas.name.push(mostrarCasa());
+  casasElegidas.date.push(new Date());
+  localStorage.setItem("Resultados", JSON.stringify(casasElegidas));
+  console.log(casasElegidas);
   const casaCont = document.getElementById("casa");
   const casaNombre = document.createElement("div");
   casaNombre.innerHTML = `<h2 class="casaNombre">Su casa es <span id="colorCasa">${mostrarCasa()}</span></h2>`;
   casaCont.appendChild(casaNombre);
   si.remove();
   no.remove(); //Acá le agregué colorcito a los nombres de las casas jeje :)
+
   const colorC = document.getElementById("colorCasa");
   if (mostrarCasa() === "Ravenclaw") {
     colorC.style = "color: blue";
@@ -211,5 +231,6 @@ function nofunc() {
   si.remove();
   no.remove();
 }
+
 // Le agregué un poco de CSS para hacerlo más lindo jaja, le falta al diseño obviamente pero le quedó
 // una estética vintage que me gusta también jajaja.

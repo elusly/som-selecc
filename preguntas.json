@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1,
+    "sumarMas": false,
+    "pregunta": "¿Qué elemento prefiere?",
+    "respuestas": [
+      {
+        "name": "Agua",
+        "type": "ravenclaw"
+      },
+      {
+        "name": "Fuego",
+        "type": "gryffindor"
+      },
+      {
+        "name": "Aire",
+        "type": "slytherin"
+      },
+      {
+        "name": "Tierra",
+        "type": "hufflepuff"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Cómo le gustaría ser recordado en la historia?",
+    "sumarMas": true,
+    "respuestas": [
+      {
+        "name": "El sabio",
+        "type": "ravenclaw"
+      },
+      {
+        "name": "El bueno",
+        "type": "hufflepuff"
+      },
+      {
+        "name": "El grande",
+        "type": "slytherin"
+      },
+      {
+        "name": "El audaz",
+        "type": "gryffindor"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "sumarMas": false,
+    "pregunta": "¿Qué le resulta más difícil soportar?",
+    "respuestas": [
+      {
+        "name": "El aburrimiento",
+        "type": "gryffindor"
+      },
+      {
+        "name": "El hambre",
+        "type": "ravenclaw"
+      },
+      {
+        "name": "La soledad",
+        "type": "hufflepuff"
+      },
+      {
+        "name": "Ser ignorado",
+        "type": "slytherin"
+      }
+    ]
+  }
+]

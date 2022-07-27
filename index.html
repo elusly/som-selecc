@@ -69,37 +69,15 @@
           <button id="butSend" type="reset" class="btn btn-secondary">
             Enviar
           </button>
+          <div id="completar"></div>
         </form>
       </section>
       <button id="boton2" class="boton__test">Comenzar test</button>
       <section class="inicio__test" id="inicio__test" style="display: none">
         <div id="nameUs"></div>
-        <div id="saludo">
-          <h2>¿Qué elemento prefiere?</h2>
-          <button id="agua" class="test__button">Agua</button>
-          <button id="fuego" class="test__button">Fuego</button>
-          <button id="aire" class="test__button">Aire</button>
-          <button id="tierra" class="test__button">Tierra</button>
-        </div>
-
-        <div>
-          <h2>¿Cómo le gustaría ser recordado en la historia?</h2>
-          <button id="sabio" class="test__button">El sabio</button>
-          <button id="bueno" class="test__button">El bueno</button>
-          <button id="grande" class="test__button">El grande</button>
-          <button id="audaz" class="test__button">El audaz</button>
-        </div>
-
-        <div>
-          <h2>¿Qué le resulta más difícil soportar?</h2>
-          <button id="aburrimiento" class="test__button--1">
-            El aburrimiento
-          </button>
-          <button id="hambre" class="test__button--1">El hambre</button>
-          <button id="soledad" class="test__button--1">La soledad</button>
-          <button id="ignorado" class="test__button--1">Ser ignorado</button>
-        </div>
+        <div id="saludo"></div>
       </section>
+
       <section id="result" style="display: none" class="test__resultado">
         <div id="resultado">
           <h1>Ya tengo todo lo que necesito, ¿quiere conocer su casa?</h1>
@@ -108,8 +86,8 @@
         </div>
         <div id="casa"></div>
       </section>
-
-      <script src="script2.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="script.js"></script>
     </div>
   </body>
 </html>

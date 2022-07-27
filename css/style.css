@@ -56,6 +56,32 @@ body {
   font-weight: bold;
   padding-right: 10px;
 }
+.botonvolver {
+  margin-left: 50%;
+  margin-top: 20px;
+}
+.linkperfil {
+  text-decoration: none;
+  font-size: 25px;
+  color: #ba9cfc;
+  font-weight: bolder;
+}
+.perfil {
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bolder;
+  width: 600px;
+  height: 500px;
+  border: 2px solid black;
+  padding-top: 15px;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: row;
+}
+.nombrelink {
+  color: #ba9cfc;
+}
 .logout {
   text-decoration: none;
   background: none;
@@ -75,7 +101,12 @@ body {
   color: #ba9cfc;
   text-decoration: underline;
 }
-
+.plscomplete {
+  margin-top: 10px;
+  color: red;
+  font-size: medium;
+  font-weight: bolder;
+}
 .boton__test {
   display: none;
   width: 200px;
@@ -114,6 +145,7 @@ body {
   margin-bottom: 10px;
   font-size: 20px;
   font-weight: bold;
+  margin: 6px;
 }
 .test__button:hover {
   box-shadow: 0 0 20px #fffbbf;
