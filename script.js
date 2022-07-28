@@ -121,8 +121,7 @@ function testAparece() {
     boton2.remove();
   }
 }
-// Lo que hice fue crear botones y a cada boton asignarle una función que sume puntos
-// a la casa que corresponda su respuesta
+// Acá está el fetch al json con las preguntas y los botones
 
 fetch("/preguntas.json")
   .then((response) => response.json())
@@ -134,12 +133,12 @@ function cargarPreguntas(preguntas) {
     const div = document.createElement("div");
 
     div.innerHTML = `<h2>${pregunta.pregunta}</h2>`;
-
+    //Acá hice lo mismo que hicimos con las preguntas, pero con las respuestas
     for (const respuesta of pregunta.respuestas)
       div.innerHTML += `<button id="${respuesta.name}" class="test__button--1">${respuesta.name}</button>`;
 
     section.append(div);
-
+    //Y esto es para agregarle el evento a los botones
     for (const respuesta of pregunta.respuestas) {
       const boton = document.getElementById(`${respuesta.name}`);
       boton.addEventListener("click", () =>
@@ -160,7 +159,10 @@ function asignarPuntos(casa, botones, sumarMas) {
     (respuesta) =>
       (document.getElementById(`${respuesta.name}`).disabled = true)
   );
-
+  // Esto es una manera de controlar que respondan todas las preguntas
+  // creé una nueva variable que sume un punto con cada pregunta (todasCasas) y como
+  // todavía son 3 preguntas, puse para que si todasCasas es === 3 ahí recién se
+  // pueda continuar con el resultado
   if (todasCasas === 3) {
     const ocultarTest = document.getElementById("inicio__test");
     ocultarTest.style.display = "none";
@@ -200,10 +202,10 @@ let casasElegidas = [{ name: "", date: "" }];
 function sifunc() {
   // const hoy = new Date();
   // console.log(hoy.toLocaleDateString("de-DE")); // D.M.YYYY
-  casasElegidas.name.push(mostrarCasa());
-  casasElegidas.date.push(new Date());
-  localStorage.setItem("Resultados", JSON.stringify(casasElegidas));
-  console.log(casasElegidas);
+  // casasElegidas.name.push(mostrarCasa());
+  // casasElegidas.date.push(new Date());
+  // localStorage.setItem("Resultados", JSON.stringify(casasElegidas));
+  // console.log(casasElegidas);
   const casaCont = document.getElementById("casa");
   const casaNombre = document.createElement("div");
   casaNombre.innerHTML = `<h2 class="casaNombre">Su casa es <span id="colorCasa">${mostrarCasa()}</span></h2>`;
