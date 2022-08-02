@@ -70,7 +70,7 @@ function crearUsuario() {
     const UsJSON = JSON.stringify(usuario1);
     localStorage.setItem("Formulario", "Enviado");
     localStorage.setItem("Usuario", UsJSON);
-    localStorage.setItem("NombreDeUsuario", usuario1.nombre);
+    // localStorage.setItem("NombreDeUsuario", usuario1.nombre);
     chequearForm();
   }
 }
@@ -87,12 +87,12 @@ function chequearForm() {
 
     const header = document.getElementById("header");
     const loggeado = document.createElement("span");
-
-    loggeado.innerHTML = `<p class="login">Saludos <a href="pages/profile.html"class="nombrelink">${localStorage.getItem(
-      "NombreDeUsuario"
-    )}</a>!</p>`;
+    const datosUsuario = JSON.parse(localStorage.getItem("Usuario"));
+    loggeado.innerHTML = `<p class="login">Saludos ${datosUsuario.nombre}!</p>`;
     header.appendChild(loggeado);
-
+    const perfil = document.createElement("span");
+    perfil.innerHTML = `<a href="pages/profile.html"class="logout">Mi perfil</a>`;
+    header.appendChild(perfil);
     const logout = document.createElement("span");
     logout.innerHTML = `<button type="button" class="logout">Cerrar sesión</button>`;
     header.appendChild(logout);
@@ -111,7 +111,7 @@ function chequearForm() {
 
 boton2.addEventListener("click", testAparece);
 function testAparece() {
-  const secTest = document.getElementById("inicio__test");
+  const secTest = document.getElementById("test__1");
 
   const formEnviado = localStorage.getItem("Formulario");
   if (formEnviado !== null) {
@@ -123,15 +123,15 @@ function testAparece() {
 }
 // Acá está el fetch al json con las preguntas y los botones
 
-fetch("/preguntas.json")
+fetch("./preguntas1.json")
   .then((response) => response.json())
   .then((content) => cargarPreguntas(content));
 
 function cargarPreguntas(preguntas) {
   for (const pregunta of preguntas) {
-    const section = document.getElementById("inicio__test");
+    const section = document.getElementById("test__1");
     const div = document.createElement("div");
-
+    div.classList.add("animacion");
     div.innerHTML = `<h2>${pregunta.pregunta}</h2>`;
     //Acá hice lo mismo que hicimos con las preguntas, pero con las respuestas
     for (const respuesta of pregunta.respuestas)
@@ -148,6 +148,30 @@ function cargarPreguntas(preguntas) {
   }
 }
 
+fetch("./preguntas2.json")
+  .then((response) => response.json())
+  .then((content) => cargarPreguntas2(content));
+
+function cargarPreguntas2(preguntas) {
+  for (const pregunta of preguntas) {
+    const section = document.getElementById("test__2");
+    const div = document.createElement("div");
+    div.classList.add("animacion");
+    div.innerHTML = `<h2>${pregunta.pregunta}</h2>`;
+    //Acá hice lo mismo que hicimos con las preguntas, pero con las respuestas
+    for (const respuesta of pregunta.respuestas)
+      div.innerHTML += `<button id="${respuesta.name}" class="test__button--1">${respuesta.name}</button>`;
+
+    section.append(div);
+    //Y esto es para agregarle el evento a los botones
+    for (const respuesta of pregunta.respuestas) {
+      const boton = document.getElementById(`${respuesta.name}`);
+      boton.addEventListener("click", () =>
+        asignarPuntos(respuesta.type, pregunta.respuestas, pregunta.sumarMas)
+      );
+    }
+  }
+}
 function asignarPuntos(casa, botones, sumarMas) {
   if (sumarMas) casas[casa] += 6;
   else casas[casa] += 5;
@@ -164,7 +188,13 @@ function asignarPuntos(casa, botones, sumarMas) {
   // todavía son 3 preguntas, puse para que si todasCasas es === 3 ahí recién se
   // pueda continuar con el resultado
   if (todasCasas === 3) {
-    const ocultarTest = document.getElementById("inicio__test");
+    const section = document.getElementById("test__1");
+    const test2Aparece = document.getElementById("test__2");
+    test2Aparece.style.display = "block";
+    section.style.display = "none";
+  }
+  if (todasCasas === 6) {
+    const ocultarTest = document.getElementById("test__2");
     ocultarTest.style.display = "none";
     const preguntar = document.getElementById("result");
     preguntar.style.display = "";
@@ -198,18 +228,35 @@ function mostrarCasa() {
 
 const si = document.getElementById("si");
 si.addEventListener("click", sifunc);
-let casasElegidas = [{ name: "", date: "" }];
+
 function sifunc() {
-  // const hoy = new Date();
-  // console.log(hoy.toLocaleDateString("de-DE")); // D.M.YYYY
-  // casasElegidas.name.push(mostrarCasa());
-  // casasElegidas.date.push(new Date());
-  // localStorage.setItem("Resultados", JSON.stringify(casasElegidas));
-  // console.log(casasElegidas);
+  const hoy = new Date();
+  const resultados = JSON.parse(localStorage.getItem("Resultados")) || [];
+  const nuevoResultado = {
+    name: mostrarCasa(),
+    date:
+      hoy.toLocaleDateString("es-AR") +
+      " - " +
+      hoy.getHours() +
+      ":" +
+      hoy.getMinutes(),
+  };
+  if (resultados.length < 7) {
+    resultados.push(nuevoResultado);
+  } else if (resultados.length >= 7) {
+    resultados.shift();
+    resultados.push(nuevoResultado);
+  }
+  localStorage.setItem("Resultados", JSON.stringify(resultados));
   const casaCont = document.getElementById("casa");
   const casaNombre = document.createElement("div");
-  casaNombre.innerHTML = `<h2 class="casaNombre">Su casa es <span id="colorCasa">${mostrarCasa()}</span></h2>`;
+  casaNombre.innerHTML = `<h1 class="casaNombre">¡¡¡<span id="colorCasa">${mostrarCasa()}</span>!!!</h1>`;
+  casaNombre.classList.add("animacionResultado");
+  const volverTest = document.createElement("div");
+  volverTest.innerHTML = `<button class="test__volver">Volver a tomar el test</button>`;
+  volverTest.addEventListener("click", () => window.location.reload());
   casaCont.appendChild(casaNombre);
+  casaCont.appendChild(volverTest);
   si.remove();
   no.remove(); //Acá le agregué colorcito a los nombres de las casas jeje :)
 
@@ -217,7 +264,7 @@ function sifunc() {
   if (mostrarCasa() === "Ravenclaw") {
     colorC.style = "color: blue";
   } else if (mostrarCasa() === "Hufflepuff") {
-    colorC.style = "color: #f4c646";
+    colorC.style = "color: #c19007";
   } else if (mostrarCasa() === "Gryffindor") {
     colorC.style = "color: red";
   } else if (mostrarCasa() === "Slytherin") {

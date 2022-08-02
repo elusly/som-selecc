@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1,
+    "sumarMas": false,
+    "pregunta": "¿Con qué animal se siente más identificado?",
+    "respuestas": [
+      {
+        "name": "Gato",
+        "type": "slytherin"
+      },
+      {
+        "name": "Delfin",
+        "type": "ravenclaw"
+      },
+      {
+        "name": "Perro",
+        "type": "hufflepuff"
+      },
+      {
+        "name": "Oso",
+        "type": "gryffindor"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Qué cualidad lo destaca más?",
+    "sumarMas": true,
+    "respuestas": [
+      {
+        "name": "Astucia",
+        "type": "slytherin"
+      },
+      {
+        "name": "Osadía",
+        "type": "gryffindor"
+      },
+      {
+        "name": "Ingenio",
+        "type": "ravenclaw"
+      },
+      {
+        "name": "Paciencia",
+        "type": "hufflepuff"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "sumarMas": false,
+    "pregunta": "¿En quién confía más?",
+    "respuestas": [
+      {
+        "name": "Familia",
+        "type": "gryffindor"
+      },
+      {
+        "name": "El conocimiento",
+        "type": "ravenclaw"
+      },
+      {
+        "name": "Amigos",
+        "type": "hufflepuff"
+      },
+      {
+        "name": "En mí mismo",
+        "type": "slytherin"
+      }
+    ]
+  }
+]
