@@ -77,7 +77,7 @@ if (casaNombreJSON === null) {
 } else {
   console.log(casaNombreJSON);
   for (let i = 0; i < casaNombreJSON.length; i++) {
-    const h4 = document.createElement("h4");
+    const h4 = document.createElement("h5");
     const span = document.createElement("span");
     span.innerText = `${casaNombreJSON[i].name}`;
     span.style = houseColor(casaNombreJSON[i].name);
