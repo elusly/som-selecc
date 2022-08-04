@@ -26,7 +26,7 @@ class Usuario {
     this.nacionalidad = nacionalidad;
   }
 }
-// Acá hice el registro en el HTML. Los valores de los inputs se guardan en un una variable
+// Esta es la sección de registro. Los valores de los inputs se guardan en un una variable
 //que luego se almacena en una array.
 let input1 = document.getElementById("name");
 let input2 = document.getElementById("age");
@@ -70,7 +70,6 @@ function crearUsuario() {
     const UsJSON = JSON.stringify(usuario1);
     localStorage.setItem("Formulario", "Enviado");
     localStorage.setItem("Usuario", UsJSON);
-    // localStorage.setItem("NombreDeUsuario", usuario1.nombre);
     chequearForm();
   }
 }
@@ -125,45 +124,24 @@ function testAparece() {
 
 fetch("./preguntas1.json")
   .then((response) => response.json())
-  .then((content) => cargarPreguntas(content));
-
-function cargarPreguntas(preguntas) {
-  for (const pregunta of preguntas) {
-    const section = document.getElementById("test__1");
-    const div = document.createElement("div");
-    div.classList.add("animacion");
-    div.innerHTML = `<h2>${pregunta.pregunta}</h2>`;
-    //Acá hice lo mismo que hicimos con las preguntas, pero con las respuestas
-    for (const respuesta of pregunta.respuestas)
-      div.innerHTML += `<button id="${respuesta.name}" class="test__button--1">${respuesta.name}</button>`;
-
-    section.append(div);
-    //Y esto es para agregarle el evento a los botones
-    for (const respuesta of pregunta.respuestas) {
-      const boton = document.getElementById(`${respuesta.name}`);
-      boton.addEventListener("click", () =>
-        asignarPuntos(respuesta.type, pregunta.respuestas, pregunta.sumarMas)
-      );
-    }
-  }
-}
+  .then((content) => cargarPreguntas(content, 1));
 
 fetch("./preguntas2.json")
   .then((response) => response.json())
-  .then((content) => cargarPreguntas2(content));
+  .then((content) => cargarPreguntas(content, 2));
 
-function cargarPreguntas2(preguntas) {
+// Acá a través de los fetch de json con las preguntas y respuestas,  creé un for of que
+// haga que se genere en el HTML todas las preguntas, con botones como respuestas
+function cargarPreguntas(preguntas, n) {
   for (const pregunta of preguntas) {
-    const section = document.getElementById("test__2");
+    const section = document.getElementById(`test__${n}`);
     const div = document.createElement("div");
     div.classList.add("animacion");
     div.innerHTML = `<h2>${pregunta.pregunta}</h2>`;
-    //Acá hice lo mismo que hicimos con las preguntas, pero con las respuestas
     for (const respuesta of pregunta.respuestas)
       div.innerHTML += `<button id="${respuesta.name}" class="test__button--1">${respuesta.name}</button>`;
-
+    // Acá se crean los botones. Cada botón al apretarlo ejecuta una función que la explico más abajo
     section.append(div);
-    //Y esto es para agregarle el evento a los botones
     for (const respuesta of pregunta.respuestas) {
       const boton = document.getElementById(`${respuesta.name}`);
       boton.addEventListener("click", () =>
@@ -172,6 +150,8 @@ function cargarPreguntas2(preguntas) {
     }
   }
 }
+// Esta función lo que hace es que cuando se toca un botón, se le suma puntos a
+// la casa a la que corresponde esa respuesta.
 function asignarPuntos(casa, botones, sumarMas) {
   if (sumarMas) casas[casa] += 6;
   else casas[casa] += 5;
@@ -183,9 +163,9 @@ function asignarPuntos(casa, botones, sumarMas) {
     (respuesta) =>
       (document.getElementById(`${respuesta.name}`).disabled = true)
   );
-  // Esto es una manera de controlar que respondan todas las preguntas
+  // Esto es una manera de controlar que respondan todas las preguntas:
   // creé una nueva variable que sume un punto con cada pregunta (todasCasas) y como
-  // todavía son 3 preguntas, puse para que si todasCasas es === 3 ahí recién se
+  // son 6 preguntas, puse para que si todasCasas es === 6 ahí recién se
   // pueda continuar con el resultado
   if (todasCasas === 3) {
     const section = document.getElementById("test__1");
@@ -200,7 +180,8 @@ function asignarPuntos(casa, botones, sumarMas) {
     preguntar.style.display = "";
   }
 }
-
+// Acá se hace la selección de la casa: se comparan todas las
+// casas y la que tenga más puntos sumados es la elegida.
 function mostrarCasa() {
   let casaElegida = 0;
   let nombreCasa = "";
@@ -228,18 +209,21 @@ function mostrarCasa() {
 
 const si = document.getElementById("si");
 si.addEventListener("click", sifunc);
-
+// Esta función revela el nombre de la casa que le tocó, y además carga ese resultado
+// al local storage, junto con la fecha y hora en que fue obtenido, para que luego
+// aparezca en la sección "perfil"
+// También agrega un botón para volver a tomar el test
 function sifunc() {
   const hoy = new Date();
   const resultados = JSON.parse(localStorage.getItem("Resultados")) || [];
+  let minutos = hoy.getMinutes();
+  if (minutos / 10 < 1) {
+    minutos = "0" + minutos;
+  }
   const nuevoResultado = {
     name: mostrarCasa(),
     date:
-      hoy.toLocaleDateString("es-AR") +
-      " - " +
-      hoy.getHours() +
-      ":" +
-      hoy.getMinutes(),
+      hoy.toLocaleDateString("es-AR") + " - " + hoy.getHours() + ":" + minutos,
   };
   if (resultados.length < 7) {
     resultados.push(nuevoResultado);
@@ -258,7 +242,8 @@ function sifunc() {
   casaCont.appendChild(casaNombre);
   casaCont.appendChild(volverTest);
   si.remove();
-  no.remove(); //Acá le agregué colorcito a los nombres de las casas jeje :)
+  no.remove();
+  //Acá le agregué colorcito a los nombres de las casas
 
   const colorC = document.getElementById("colorCasa");
   if (mostrarCasa() === "Ravenclaw") {
@@ -273,13 +258,19 @@ function sifunc() {
 }
 const no = document.getElementById("no");
 no.addEventListener("click", nofunc);
+// Esta función simplemente hace que aparezca un "Hasta luego" y también
+// aparece el botón de volver a tomar el test
 function nofunc() {
   const nada = document.createElement("h2");
-  nada.innerHTML = `Hasta luego`;
-  document.body.append(nada);
+  nada.innerText = `Hasta luego`;
+  const div = document.getElementById("resultado");
+  nada.classList.add("hastaLuego");
+  const volverTest = document.createElement("div");
+  const casaCont = document.getElementById("casa");
+  volverTest.innerHTML = `<button class="test__volver">Volver a tomar el test</button>`;
+  volverTest.addEventListener("click", () => window.location.reload());
+  casaCont.appendChild(volverTest);
+  div.appendChild(nada);
   si.remove();
   no.remove();
 }
-
-// Le agregué un poco de CSS para hacerlo más lindo jaja, le falta al diseño obviamente pero le quedó
-// una estética vintage que me gusta también jajaja.

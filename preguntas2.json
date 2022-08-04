@@ -25,7 +25,7 @@
   {
     "id": 2,
     "pregunta": "¿Qué cualidad lo destaca más?",
-    "sumarMas": true,
+    "sumarMas": false,
     "respuestas": [
       {
         "name": "Astucia",

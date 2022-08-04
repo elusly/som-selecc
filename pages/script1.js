@@ -23,7 +23,7 @@ function renderizarPerfil(modo) {
     />`;
     perfilAge.innerHTML = `<label for="name" class="form-label">Edad:</label>
     <input
-      type="text"
+      type="number"
       class="form-control"
       id="newAge"
       style= "width: 150px;"

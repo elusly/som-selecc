@@ -136,6 +136,10 @@ body {
   font-size: medium;
   font-weight: bolder;
 }
+.hastaLuego {
+  text-align: center;
+  font-weight: 900;
+}
 .boton__test {
   display: none;
   width: 200px;
@@ -152,7 +156,11 @@ body {
 .casaNombre {
   text-align: center;
 }
-.boton,
+.boton:hover {
+  box-shadow: 0 0 20px #fffbbf;
+  border: 1px solid #ffff72;
+  color: #ffff72;
+}
 .boton__test:hover {
   box-shadow: 0 0 20px #fffbbf;
   border: 1px solid #ffff72;
@@ -211,6 +219,7 @@ body {
     opacity: 1;
   }
 }
+
 .animacionResultado {
   animation: zoomIn 750ms ease;
 }
