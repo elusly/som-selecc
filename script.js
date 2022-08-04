@@ -216,14 +216,17 @@ si.addEventListener("click", sifunc);
 function sifunc() {
   const hoy = new Date();
   const resultados = JSON.parse(localStorage.getItem("Resultados")) || [];
+  let horas = hoy.getHours();
+  if (horas < 10) {
+    horas = "0" + horas;
+  }
   let minutos = hoy.getMinutes();
   if (minutos / 10 < 1) {
     minutos = "0" + minutos;
   }
   const nuevoResultado = {
     name: mostrarCasa(),
-    date:
-      hoy.toLocaleDateString("es-AR") + " - " + hoy.getHours() + ":" + minutos,
+    date: hoy.toLocaleDateString("es-AR") + " - " + horas + ":" + minutos,
   };
   if (resultados.length < 7) {
     resultados.push(nuevoResultado);
