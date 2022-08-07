@@ -2,7 +2,7 @@ let modoEdicion = false;
 const datosUsuario = JSON.parse(localStorage.getItem("Usuario"));
 renderizarPerfil(modoEdicion);
 console.log(datosUsuario.nombre);
-
+// Acá está la sección del perfil. Obtiene todos los datos del local storage
 function renderizarPerfil(modo) {
   const editar = document.getElementById("editar");
   const perfilAge = document.getElementById("profile__age");
@@ -36,7 +36,7 @@ function renderizarPerfil(modo) {
       id="newNac"
       style= "width: 200px;"
       value="${datosUsuario.nacionalidad}"
-    />`;
+    />`; // Acá estan las entradas para poder editar los datos que se cargaron al perfil
     let inputNewNa = document.getElementById("newName");
     let inputNewAg = document.getElementById("newAge");
     let inputNewNac = document.getElementById("newNac");
@@ -69,7 +69,7 @@ function renderizarPerfil(modo) {
     perfilNac.innerText = `Nacionalidad: ${datosUsuario.nacionalidad}`;
   }
 }
-
+// Y acá se cargan los resultados del test. Almacena hasta 7
 const resultadosTest = document.getElementById("resultadosTest");
 const casaNombreJSON = JSON.parse(localStorage.getItem("Resultados"));
 if (casaNombreJSON === null) {
